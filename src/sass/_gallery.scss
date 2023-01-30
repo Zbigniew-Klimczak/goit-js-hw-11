@@ -1,0 +1,30 @@
+.gallery {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.photo-card {
+  width: auto;
+  height: auto;
+  flex-basis: calc((100% - 60px) / 4);
+}
+.gallery-img {
+  object-fit: contain;
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.info-item {
+  width: auto;
+  height: auto;
+  flex-basis: calc((100% - 60px) / 4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

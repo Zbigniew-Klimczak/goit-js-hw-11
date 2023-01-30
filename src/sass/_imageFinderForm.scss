@@ -1,0 +1,48 @@
+.form-container {
+  width: 100vw;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(42, 64, 233);
+}
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  border: 3px solid rgb(255, 255, 255);
+  border-radius: 4px;
+
+  &__input {
+    font-weight: 500;
+    outline: none;
+    border: none;
+    width: 30vw;
+    height: 36px;
+    padding: 0 10px;
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 36px;
+    height: 36px;
+    border: 3px solid inherit;
+    background-image: url(https://icons8.com/icon/7695/search);
+    &:checked,
+    &:hover,
+    &:focus {
+      background-color: rgb(152, 152, 152);
+    }
+    & > img {
+      height: 24px;
+      width: 24px;
+    }
+  }
+}
