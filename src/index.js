@@ -4,10 +4,12 @@ const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
 const loadmoreButton = document.querySelector('.load-more');
 let inputValue;
+let actualPage;
 form.addEventListener('submit', formSubmit);
 function formSubmit(event) {
   event.preventDefault();
   gallery.replaceChildren();
+  actualPage = 1;
   const {
     elements: { searchQuery },
   } = event.currentTarget;
@@ -16,18 +18,35 @@ function formSubmit(event) {
     Notiflix.Notify.info('Please enter your search query first.');
   }
   if (inputValue !== '') {
-    fetchSearchquery(inputValue, 1);
+    fetchSearchquery(inputValue, actualPage);
   }
 }
 export function collectData(results) {
-  if (results.totalHits === 0) {
-    Notiflix.Notify.warning(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
+  if (actualPage === 1) {
+    if (results.totalHits === 0) {
+      Notiflix.Notify.warning(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    }
+    if (results.totalHits > 0) {
+      Notiflix.Notify.success(`Hooray! We found ${results.totalHits} images.`);
+      galleryCreate(results.hits);
+      if (results.totalHits > 40) {
+        loadmoreButton.classList.remove('hidden');
+      }
+    }
   }
-  if (results.totalHits > 0) {
-    Notiflix.Notify.success(`Hooray! We found ${results.totalHits} images.`);
-    galleryCreate(results.hits);
+  if (actualPage > 1) {
+    if ((results.totalHits = gallery.childElementCount)) {
+      loadmoreButton.classList.add('hidden');
+      Notiflix.Notify.warning(
+        `We're sorry, but you've reached the end of search results.`
+      );
+      galleryCreate(results.hits);
+    } else {
+      loadmoreButton.classList.remove('hidden');
+      galleryCreate(results.hits);
+    }
   }
 }
 function galleryCreate(data) {
@@ -74,3 +93,8 @@ function galleryCreate(data) {
     infoDownloads.prepend(downloads);
   }
 }
+loadmoreButton.addEventListener('click', () => {
+  loadmoreButton.classList.add('hidden');
+  actualPage = actualPage + 1;
+  fetchSearchquery(inputValue, actualPage);
+});
