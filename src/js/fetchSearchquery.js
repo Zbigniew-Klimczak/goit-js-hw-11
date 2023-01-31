@@ -15,7 +15,6 @@ export async function fetchSearchquery(searchquery, page) {
         '&page=' +
         page
     );
-    console.log(response.data);
     collectData(response.data);
   } catch (error) {
     console.log(error);
