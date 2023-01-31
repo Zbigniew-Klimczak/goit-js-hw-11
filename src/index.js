@@ -7,6 +7,7 @@ let inputValue;
 let actualPage;
 form.addEventListener('submit', formSubmit);
 function formSubmit(event) {
+  loadmoreButton.classList.add('hidden');
   event.preventDefault();
   gallery.replaceChildren();
   actualPage = 1;
@@ -37,15 +38,13 @@ export function collectData(results) {
     }
   }
   if (actualPage > 1) {
-    if ((results.totalHits = gallery.childElementCount)) {
+    loadmoreButton.classList.remove('hidden');
+    galleryCreate(results.hits);
+    if (results.totalHits === gallery.childElementCount) {
       loadmoreButton.classList.add('hidden');
       Notiflix.Notify.warning(
         `We're sorry, but you've reached the end of search results.`
       );
-      galleryCreate(results.hits);
-    } else {
-      loadmoreButton.classList.remove('hidden');
-      galleryCreate(results.hits);
     }
   }
 }
